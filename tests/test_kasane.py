@@ -5,8 +5,9 @@ from sphinx.application import Sphinx
 from sphinx.builders import Builder
 from sphinx.registry import SphinxComponentRegistry
 
-from sphinxcontrib.kasane import MixinDynamicInheritance, TranslatorSetUp
+from sphinxcontrib.kasane import TranslatorSetUp
 from sphinxcontrib.kasane.conditions import BuilderCondition
+from sphinxcontrib.kasane.inheritance import MixinDynamicInheritance
 
 
 class TestTranslatorSetUp:
@@ -78,17 +79,3 @@ class TestTranslatorSetUp:
         satisfied_condition.is_satisfied_by.assert_called_once_with(
             app.builder
         )
-
-
-class TestMixinDynamicInheritance:
-    def test_create_new_class(self) -> None:
-        class AwesomeMixin: ...  # NOQA: E701
-
-        class SomeClass: ...  # NOQA: E701
-
-        sut = MixinDynamicInheritance(AwesomeMixin, "AwesomeNewClass")
-        actual = sut(SomeClass)
-
-        assert actual.__name__ == "AwesomeNewClass"
-        assert issubclass(actual, AwesomeMixin)
-        assert issubclass(actual, SomeClass)
