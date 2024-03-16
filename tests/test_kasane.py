@@ -87,18 +87,31 @@ class TestTranslatorSetUp:
         )
 
 
-def test_new_translator_class_for_builder() -> None:
-    class AwesomeMixin: ...  # NOQA: E701
+class TestNewTranslatorClassForBuilder:
+    def test_new_translator_class_for_builder(self) -> None:
+        class AwesomeMixin: ...  # NOQA: E701
 
-    actual = new_translator_class_for_builder(
-        "html", AwesomeMixin, "AwesomeTranslator"
-    )
+        actual = new_translator_class_for_builder(
+            "html", AwesomeMixin, "AwesomeTranslator"
+        )
 
-    assert isinstance(actual, TranslatorSetUp)
-    assert isinstance(actual.inheritance, MixinDynamicInheritance)
-    assert vars(actual.inheritance) == {
-        "mixin_class": AwesomeMixin,
-        "new_class_name": "AwesomeTranslator",
-    }
-    assert isinstance(actual.condition, BuilderFormatCondition)
-    assert actual.condition.format == "html"
+        assert isinstance(actual, TranslatorSetUp)
+        self.assert_inheritance(
+            actual.inheritance,
+            MixinDynamicInheritance(AwesomeMixin, "AwesomeTranslator"),
+        )
+        self.assert_condition(actual.condition, "html")
+
+    def assert_inheritance(
+        self,
+        actual: MixinDynamicInheritance,
+        expected: MixinDynamicInheritance,
+    ) -> None:
+        assert isinstance(actual, MixinDynamicInheritance)
+        assert vars(actual) == vars(expected)
+
+    def assert_condition(
+        self, actual: BuilderFormatCondition, expected_format: str
+    ) -> None:
+        assert isinstance(actual, BuilderFormatCondition)
+        assert actual.format == expected_format
