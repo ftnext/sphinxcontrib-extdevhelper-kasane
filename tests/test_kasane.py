@@ -1,4 +1,11 @@
-from sphinxcontrib.kasane import MixinDynamicInheritance
+from unittest.mock import MagicMock
+
+from sphinx.builders import Builder
+
+from sphinxcontrib.kasane import (
+    BuilderFormatCondition,
+    MixinDynamicInheritance,
+)
 
 
 class TestMixinDynamicInheritance:
@@ -13,3 +20,13 @@ class TestMixinDynamicInheritance:
         assert actual.__name__ == "AwesomeNewClass"
         assert issubclass(actual, AwesomeMixin)
         assert issubclass(actual, SomeClass)
+
+
+class TestBuilderFormatCondition:
+    def test_satisfied(self):
+        html_format_builder = MagicMock(spec=Builder)
+        html_format_builder.format = "html"
+
+        sut = BuilderFormatCondition("html")
+
+        assert sut.is_satisfied_by(html_format_builder)
