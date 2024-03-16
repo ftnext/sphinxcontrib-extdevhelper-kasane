@@ -1,11 +1,29 @@
 from unittest.mock import MagicMock
 
+from sphinx.application import Sphinx
 from sphinx.builders import Builder
 
 from sphinxcontrib.kasane import (
     BuilderFormatCondition,
     MixinDynamicInheritance,
+    TranslatorSetUp,
 )
+
+
+class TestTranslatorSetUp:
+    def test_condition_not_satisfied(self) -> None:
+        inheritance = MagicMock(spec=MixinDynamicInheritance)
+        condition = MagicMock(spec=BuilderFormatCondition)
+        condition.is_satisfied_by.return_value = False
+        sut = TranslatorSetUp(inheritance, condition)
+
+        app = MagicMock(spec=Sphinx)
+        builder = MagicMock(spec=Builder)
+        app.builder = builder
+        sut(app)
+
+        app.set_translator.assert_not_called()
+        condition.is_satisfied_by.assert_called_once_with(app.builder)
 
 
 class TestMixinDynamicInheritance:
