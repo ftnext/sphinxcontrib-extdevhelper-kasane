@@ -5,8 +5,14 @@ from sphinx.application import Sphinx
 from sphinx.builders import Builder
 from sphinx.registry import SphinxComponentRegistry
 
-from sphinxcontrib.kasane import TranslatorSetUp
-from sphinxcontrib.kasane.conditions import BuilderCondition
+from sphinxcontrib.kasane import (
+    TranslatorSetUp,
+    new_translator_class_for_builder,
+)
+from sphinxcontrib.kasane.conditions import (
+    BuilderCondition,
+    BuilderFormatCondition,
+)
 from sphinxcontrib.kasane.inheritance import MixinDynamicInheritance
 
 
@@ -79,3 +85,20 @@ class TestTranslatorSetUp:
         satisfied_condition.is_satisfied_by.assert_called_once_with(
             app.builder
         )
+
+
+def test_new_translator_class_for_builder() -> None:
+    class AwesomeMixin: ...  # NOQA: E701
+
+    actual = new_translator_class_for_builder(
+        "html", AwesomeMixin, "AwesomeTranslator"
+    )
+
+    assert isinstance(actual, TranslatorSetUp)
+    assert isinstance(actual.inheritance, MixinDynamicInheritance)
+    assert vars(actual.inheritance) == {
+        "mixin_class": AwesomeMixin,
+        "new_class_name": "AwesomeTranslator",
+    }
+    assert isinstance(actual.condition, BuilderFormatCondition)
+    assert actual.condition.format == "html"
