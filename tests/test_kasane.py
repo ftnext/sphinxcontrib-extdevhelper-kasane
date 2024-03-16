@@ -32,15 +32,21 @@ class TestTranslatorSetUp:
         return app
 
     @pytest.fixture
+    def inheritance(self) -> MixinDynamicInheritance:
+        return MagicMock(spec=MixinDynamicInheritance(None, ""))
+
+    @pytest.fixture
     def unsatisfied_condition(self) -> BuilderCondition:
         condition = MagicMock(spec=BuilderCondition)
         condition.is_satisfied_by.return_value = False
         return condition
 
     def test_condition_not_satisfied(
-        self, app: Sphinx, unsatisfied_condition: BuilderCondition
+        self,
+        app: Sphinx,
+        inheritance: MixinDynamicInheritance,
+        unsatisfied_condition: BuilderCondition,
     ) -> None:
-        inheritance = MagicMock(spec=MixinDynamicInheritance)
         sut = TranslatorSetUp(inheritance, unsatisfied_condition)
 
         sut(app)
@@ -57,9 +63,11 @@ class TestTranslatorSetUp:
         return condition
 
     def test_condition_satisfied(
-        self, app: Sphinx, satisfied_condition: BuilderCondition
+        self,
+        app: Sphinx,
+        inheritance: MixinDynamicInheritance,
+        satisfied_condition: BuilderCondition,
     ) -> None:
-        inheritance = MagicMock(spec=MixinDynamicInheritance(None, ""))
         sut = TranslatorSetUp(inheritance, satisfied_condition)
 
         sut(app)
