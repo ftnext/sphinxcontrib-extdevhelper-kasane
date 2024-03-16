@@ -4,14 +4,21 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "sphinxcontrib-extdevhelper-kasane"
-description = "TODO write description or delete"
+description = "襲 - Provide dynamic inheritance shortcuts to make Sphinx extension development easier"
 readme = "README.md"
 requires-python = ">=3.8"
 license = { text = "MIT License" }
 authors = [{ name = "nikkie", email = "takuyafjp+develop@gmail.com" }]
-keywords = ["TODO", "write", "keywords"]
+keywords = ["Sphinx extension", "helper"]
 classifiers = [
+    "Development Status :: 3 - Alpha",
     "License :: OSI Approved :: MIT License",
+    "Intended Audience :: Developers",
+    "Framework :: Sphinx",
+    "Framework :: Sphinx :: Extension",
+    "Topic :: Documentation",
+    "Topic :: Documentation :: Sphinx",
+    "Topic :: Software Development :: Documentation",
     "Programming Language :: Python",
     "Programming Language :: Python :: 3",
     "Programming Language :: Python :: 3 :: Only",
@@ -19,6 +26,7 @@ classifiers = [
     "Programming Language :: Python :: 3.9",
     "Programming Language :: Python :: 3.10",
     "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
 ]
 dynamic = ["version"]
 dependencies = ["Sphinx"]
