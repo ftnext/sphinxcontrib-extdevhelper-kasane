@@ -35,7 +35,7 @@ dependencies = ["Sphinx"]
 Repository = "https://github.com/ftnext/sphinxcontrib-extdevhelper-kasane"
 
 [tool.setuptools.dynamic]
-version = { attr = "sphinxcontrib/kasane.__version__" }
+version = { attr = "sphinxcontrib.kasane.__version__" }
 
 [project.optional-dependencies]
 dev = [
