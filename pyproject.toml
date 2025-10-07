@@ -12,7 +12,6 @@ authors = [{ name = "nikkie", email = "takuyafjp+develop@gmail.com" }]
 keywords = ["Sphinx extension", "helper"]
 classifiers = [
     "Development Status :: 3 - Alpha",
-    "License :: OSI Approved :: MIT License",
     "Intended Audience :: Developers",
     "Framework :: Sphinx",
     "Framework :: Sphinx :: Extension",
@@ -22,11 +21,11 @@ classifiers = [
     "Programming Language :: Python",
     "Programming Language :: Python :: 3",
     "Programming Language :: Python :: 3 :: Only",
-    "Programming Language :: Python :: 3.8",
-    "Programming Language :: Python :: 3.9",
     "Programming Language :: Python :: 3.10",
     "Programming Language :: Python :: 3.11",
     "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Programming Language :: Python :: 3.14",
 ]
 dynamic = ["version"]
 dependencies = ["Sphinx"]
