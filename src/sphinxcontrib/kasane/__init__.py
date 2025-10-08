@@ -8,7 +8,7 @@ from sphinxcontrib.kasane.conditions import (
 )
 from sphinxcontrib.kasane.inheritance import MixinDynamicInheritance
 
-__version__ = "0.2.0"
+__version__ = "0.2.1"
 
 
 class TranslatorSetUp:
